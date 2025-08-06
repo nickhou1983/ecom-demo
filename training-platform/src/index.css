@@ -5,6 +5,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 自定义筛选器样式，支持"其他"字段值 */
+.filter-wrapper .filter-item[data-value="其他"],
+.filter-wrapper .filter-item[data-value="other"] {
+  display: inline-block !important;
+  opacity: 1 !important;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
@@ -26,4 +33,24 @@ code {
 
 #root {
   min-height: 100vh;
+}
+
+/* 筛选器字段值可见性设置 */
+.ant-select-selection-item[title="其他"],
+.ant-tag[title="其他"],
+.ant-table-filter-dropdown-search-input[value="其他"] {
+  visibility: visible !important;
+  display: inline-flex !important;
+}
+
+/* 暗黑模式主题下的一些优化 */
+body.dark-theme {
+  background-color: #141414;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 确保筛选菜单中的"其他"选项可见 */
+.ant-dropdown-menu-item[data-value="其他"],
+.ant-select-item[title="其他"] {
+  display: block !important;
 }
