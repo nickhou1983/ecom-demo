@@ -235,6 +235,28 @@ export const mockProgress: Progress[] = [
     lastAccessed: '2024-01-18T14:30:00Z',
     startDate: '2024-01-10T09:00:00Z',
     completedDate: '2024-01-18T16:00:00Z'
+  },
+  {
+    id: '3',
+    userId: '1',
+    courseId: '2',
+    completedLessons: ['2-1'],
+    currentLesson: '2-2',
+    completedPercentage: 25,
+    timeSpent: 180,
+    lastAccessed: '2024-01-21T15:45:00Z',
+    startDate: '2024-01-18T10:00:00Z'
+  },
+  {
+    id: '4',
+    userId: '1',
+    courseId: '4',
+    completedLessons: [],
+    currentLesson: '4-1',
+    completedPercentage: 5,
+    timeSpent: 30,
+    lastAccessed: '2024-01-22T09:15:00Z',
+    startDate: '2024-01-22T09:00:00Z'
   }
 ];
 
@@ -402,5 +424,81 @@ export const skillTags = [
   'Machine Learning', 'Data Analysis', 'AI',
   'Agile', 'Scrum', 'Leadership', 'Communication'
 ];
+
+// 学习活动数据
+export const mockLearningActivities = [
+  {
+    id: 'activity-1',
+    userId: '1',
+    type: 'lesson_completed',
+    title: '完成课程章节',
+    description: '完成了"React 入门到精通"课程的"组件与JSX"章节',
+    courseId: '1',
+    lessonId: '1-2',
+    timestamp: '2024-01-20T10:30:00Z',
+    points: 10
+  },
+  {
+    id: 'activity-2',
+    userId: '1',
+    type: 'quiz_passed',
+    title: '通过课程测验',
+    description: '以95分的成绩通过了"Python数据分析基础"的结业测验',
+    courseId: '3',
+    score: 95,
+    timestamp: '2024-01-18T16:00:00Z',
+    points: 50
+  },
+  {
+    id: 'activity-3',
+    userId: '1',
+    type: 'course_started',
+    title: '开始新课程',
+    description: '开始学习"企业级Node.js开发"课程',
+    courseId: '2',
+    timestamp: '2024-01-18T10:00:00Z',
+    points: 5
+  },
+  {
+    id: 'activity-4',
+    userId: '1',
+    type: 'certificate_earned',
+    title: '获得证书',
+    description: '获得"Python数据分析基础"课程完成证书',
+    courseId: '3',
+    certificateId: 'cert-1',
+    timestamp: '2024-01-18T16:30:00Z',
+    points: 100
+  },
+  {
+    id: 'activity-5',
+    userId: '1',
+    type: 'course_started',
+    title: '开始新课程',
+    description: '开始学习"DevOps实践指南"课程',
+    courseId: '4',
+    timestamp: '2024-01-22T09:00:00Z',
+    points: 5
+  }
+];
+
+// 学习统计数据
+export const mockLearningStats = {
+  userId: '1',
+  totalCourses: 4,
+  completedCourses: 1,
+  inProgressCourses: 3,
+  totalLearningTime: 1260, // 21小时
+  currentWeekTime: 180, // 3小时
+  currentStreak: 5, // 连续学习天数
+  longestStreak: 12,
+  totalPoints: 1250,
+  weeklyGoal: 300, // 5小时/周
+  weeklyProgress: 60, // 60%完成
+  averageSessionTime: 45, // 平均每次学习45分钟
+  favoriteCategory: '前端开发',
+  completionRate: 85, // 85%的开始课程最终完成
+  lastWeekActivities: 8 // 上周学习活动次数
+};
 
 export const currentUser: User = mockUsers[0]; // 默认当前用户为张三
