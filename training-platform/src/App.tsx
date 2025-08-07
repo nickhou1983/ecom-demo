@@ -9,6 +9,11 @@ import CoursesPage from './pages/CoursesPage';
 import CourseDetailPage from './pages/CourseDetailPage';
 import ProfilePage from './pages/ProfilePage';
 import QuizPage from './pages/QuizPage';
+import LearningProgressPage from './pages/LearningProgressPage';
+import MyCoursesPage from './pages/MyCoursesPage';
+import LearningPage from './pages/LearningPage';
+import CertificatesPage from './pages/CertificatesPage';
+import AchievementsPage from './pages/AchievementsPage';
 import './App.css';
 
 // 主应用内容
@@ -33,13 +38,13 @@ function AppContent() {
         <Route path="/courses/:id" element={<CourseDetailPage />} />
         <Route path="/quiz/:id" element={<QuizPage />} />
         <Route path="/courses/all" element={<CoursesPage />} />
-        <Route path="/courses/my" element={<div>我的课程</div>} />
-        <Route path="/courses/learning" element={<div>正在学习</div>} />
+        <Route path="/courses/my" element={<MyCoursesPage />} />
+        <Route path="/courses/learning" element={<LearningPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/info" element={<ProfilePage />} />
-        <Route path="/profile/progress" element={<div>学习进度</div>} />
-        <Route path="/profile/certificates" element={<div>我的证书</div>} />
-        <Route path="/achievements" element={<div>成就中心</div>} />
+        <Route path="/profile/progress" element={<LearningProgressPage />} />
+        <Route path="/profile/certificates" element={<CertificatesPage />} />
+        <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/admin/*" element={<div>管理后台</div>} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>

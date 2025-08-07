@@ -84,6 +84,8 @@ export interface Certificate {
   verificationCode: string;
   grade?: number;
   isValid: boolean;
+  type?: string;
+  skills?: string[];
 }
 
 // 测验/考试
