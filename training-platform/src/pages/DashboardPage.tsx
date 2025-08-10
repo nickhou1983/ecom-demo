@@ -10,6 +10,7 @@ import {
   RightOutlined,
   FireOutlined
 } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { 
   mockCourses, 
@@ -24,6 +25,7 @@ const { Title, Text } = Typography;
 export default function DashboardPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // 计算学习统计
   const userProgress = mockProgress.filter(p => p.userId === user?.id);
@@ -64,19 +66,19 @@ export default function DashboardPage() {
           </Col>
           <Col flex={1} style={{ marginLeft: '16px' }}>
             <Title level={2} style={{ margin: 0 }}>
-              欢迎回来，{user?.name}！
+              {t('dashboard.welcome')}, {user?.name}！
             </Title>
             <Text type="secondary">
-              继续您的学习之旅，探索更多知识领域
+              {t('dashboard.subtitle')}
             </Text>
           </Col>
           <Col>
             <Space>
               <Tag color="blue" icon={<FireOutlined />}>
-                连续学习: {stats.currentStreak}天
+                {t('dashboard.currentStreak')}: {stats.currentStreak}{t('dashboard.days')}
               </Tag>
               <Tag color="green" icon={<TrophyOutlined />}>
-                积分: {stats.totalPoints}
+                {t('dashboard.points')}: {stats.totalPoints}
               </Tag>
             </Space>
           </Col>
@@ -88,9 +90,9 @@ export default function DashboardPage() {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="已完成课程"
+              title={t('dashboard.completedCourses')}
               value={stats.completedCourses}
-              suffix="门"
+              suffix={t('dashboard.courses')}
               prefix={<CheckCircleOutlined style={{ color: '#52c41a' }} />}
             />
           </Card>
@@ -98,9 +100,9 @@ export default function DashboardPage() {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="进行中课程"
+              title={t('dashboard.inProgressCourses')}
               value={stats.inProgressCourses}
-              suffix="门"
+              suffix={t('dashboard.courses')}
               prefix={<PlayCircleOutlined style={{ color: '#1890ff' }} />}
             />
           </Card>
@@ -108,9 +110,9 @@ export default function DashboardPage() {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="学习时长"
+              title={t('dashboard.totalLearningTime')}
               value={Math.round(stats.totalLearningTime / 60)}
-              suffix="小时"
+              suffix={t('dashboard.hours')}
               prefix={<ClockCircleOutlined style={{ color: '#fa8c16' }} />}
             />
           </Card>
@@ -118,9 +120,9 @@ export default function DashboardPage() {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="本周进度"
+              title={t('dashboard.weeklyProgress')}
               value={stats.weeklyProgress}
-              suffix="%"
+              suffix={t('dashboard.percent')}
               prefix={<TrophyOutlined style={{ color: '#eb2f96' }} />}
             />
             <div style={{ marginTop: '8px' }}>
@@ -131,7 +133,7 @@ export default function DashboardPage() {
                 showInfo={false}
               />
               <Text type="secondary" style={{ fontSize: '12px' }}>
-                目标: {Math.round(stats.weeklyGoal / 60)}小时/周
+                {t('dashboard.goal')}: {Math.round(stats.weeklyGoal / 60)}{t('dashboard.perWeek')}
               </Text>
             </div>
           </Card>
@@ -145,10 +147,10 @@ export default function DashboardPage() {
             title={
               <Space>
                 <BookOutlined />
-                我的学习进度
+                {t('dashboard.learningProgress')}
               </Space>
             }
-            extra={<Button type="link">查看全部 <RightOutlined /></Button>}
+            extra={<Button type="link" onClick={() => navigate('/profile/progress')}>{t('dashboard.viewAll')} <RightOutlined /></Button>}
             style={{ height: '500px' }}
           >
             {learningProgressData.length === 0 ? (
@@ -163,7 +165,7 @@ export default function DashboardPage() {
                 height: '100%'
               }}>
                 <BookOutlined style={{ fontSize: '48px', marginBottom: '16px' }} />
-                <Text type="secondary">暂无数据</Text>
+                <Text type="secondary">{t('dashboard.noData')}</Text>
               </div>
             ) : (
               <div style={{ height: 'calc(100% - 50px)', overflowY: 'auto' }}>
@@ -172,8 +174,8 @@ export default function DashboardPage() {
                   renderItem={(item) => {
                     const statusColor = item.completedPercentage === 100 ? '#52c41a' : 
                                       item.completedPercentage > 50 ? '#1890ff' : '#fa8c16';
-                    const statusText = item.completedPercentage === 100 ? '已完成' : 
-                                     item.completedPercentage > 50 ? '进行中' : '刚开始';
+                    const statusText = item.completedPercentage === 100 ? t('dashboard.status.completed') : 
+                                     item.completedPercentage > 50 ? t('dashboard.status.inProgress') : t('dashboard.status.justStarted');
                     
                     return (
                       <List.Item style={{ 
@@ -238,10 +240,10 @@ export default function DashboardPage() {
                                   marginBottom: '4px'
                                 }}>
                                   <Text type="secondary" style={{ fontSize: '12px' }}>
-                                    进度: {item.completedPercentage}%
+                                    {t('dashboard.progress')}: {item.completedPercentage}{t('dashboard.percent')}
                                   </Text>
                                   <Text type="secondary" style={{ fontSize: '12px' }}>
-                                    {Math.round(item.timeSpent / 60)} 小时
+                                    {Math.round(item.timeSpent / 60)} {t('dashboard.hours')}
                                   </Text>
                                 </div>
                                 <Progress 
@@ -258,11 +260,11 @@ export default function DashboardPage() {
                                 alignItems: 'center'
                               }}>
                                 <Text type="secondary" style={{ fontSize: '11px' }}>
-                                  最后学习: {new Date(item.lastAccessed).toLocaleDateString('zh-CN')}
+                                  {t('dashboard.lastStudied')}: {new Date(item.lastAccessed).toLocaleDateString('zh-CN')}
                                 </Text>
                                 {item.completedDate ? (
                                   <Text type="success" style={{ fontSize: '11px' }}>
-                                    完成于: {new Date(item.completedDate).toLocaleDateString('zh-CN')}
+                                    {t('dashboard.completedOn')}: {new Date(item.completedDate).toLocaleDateString('zh-CN')}
                                   </Text>
                                 ) : (
                                   <Button 
@@ -270,7 +272,7 @@ export default function DashboardPage() {
                                     size="small"
                                     onClick={() => navigate(`/courses/${item.courseId}`)}
                                   >
-                                    继续学习
+                                    {t('dashboard.continueLearning')}
                                   </Button>
                                 )}
                               </div>
@@ -292,10 +294,10 @@ export default function DashboardPage() {
             title={
               <Space>
                 <StarOutlined />
-                推荐课程
+                {t('dashboard.recommendedCourses')}
               </Space>
             }
-            extra={<Button type="link">浏览更多 <RightOutlined /></Button>}
+            extra={<Button type="link">{t('dashboard.browseMore')} <RightOutlined /></Button>}
             style={{ height: '500px' }}
           >
             <div style={{ height: 'calc(100% - 50px)', overflowY: 'auto' }}>
@@ -311,7 +313,7 @@ export default function DashboardPage() {
                     }}
                     actions={[
                       <Button type="primary" size="small" onClick={() => navigate(`/courses/${course.id}`)}>
-                        开始学习
+                        {t('dashboard.startLearning')}
                       </Button>
                     ]}
                   >
@@ -338,8 +340,8 @@ export default function DashboardPage() {
                               }
                               style={{ fontSize: '11px', padding: '0 6px' }}
                             >
-                              {course.level === 'beginner' ? '初级' : 
-                               course.level === 'intermediate' ? '中级' : '高级'}
+                              {course.level === 'beginner' ? t('dashboard.levels.beginner') : 
+                               course.level === 'intermediate' ? t('dashboard.levels.intermediate') : t('dashboard.levels.advanced')}
                             </Tag>
                             <Tag style={{ fontSize: '11px', padding: '0 6px' }}>{course.category}</Tag>
                           </Space>
@@ -349,12 +351,12 @@ export default function DashboardPage() {
                         <div>
                           <div style={{ marginBottom: '8px' }}>
                             <Text type="secondary" style={{ fontSize: '12px' }}>
-                              {course.instructor} • {Math.round(course.duration / 60)}小时 • ⭐ {course.rating}
+                              {course.instructor} • {Math.round(course.duration / 60)}{t('dashboard.hours')} • ⭐ {course.rating}
                             </Text>
                           </div>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text type="secondary" style={{ fontSize: '11px' }}>
-                              {course.enrolledCount} 人已学习
+                              {course.enrolledCount} {t('dashboard.enrolled')}
                             </Text>
                           </div>
                         </div>
@@ -375,10 +377,10 @@ export default function DashboardPage() {
             title={
               <Space>
                 <ClockCircleOutlined />
-                最近学习活动
+                {t('dashboard.recentActivities')}
               </Space>
             }
-            extra={<Button type="link">查看全部 <RightOutlined /></Button>}
+            extra={<Button type="link" onClick={() => navigate('/courses/learning')}>{t('dashboard.viewAll')} <RightOutlined /></Button>}
           >
             <List
               dataSource={recentActivities}
@@ -426,7 +428,7 @@ export default function DashboardPage() {
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span>{activity.title}</span>
                           <Tag color="orange" style={{ fontSize: '11px', padding: '0 6px' }}>
-                            +{activity.points} 积分
+                            +{activity.points} {t('dashboard.points')}
                           </Tag>
                         </div>
                       }
@@ -454,7 +456,7 @@ export default function DashboardPage() {
             title={
               <Space>
                 <TrophyOutlined />
-                学习统计概览
+                {t('dashboard.learningStats')}
               </Space>
             }
           >
@@ -464,15 +466,15 @@ export default function DashboardPage() {
                   <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#1890ff' }}>
                     {stats.currentStreak}
                   </div>
-                  <Text type="secondary">连续学习天数</Text>
+                  <Text type="secondary">{t('dashboard.currentStreak')}</Text>
                 </div>
               </Col>
               <Col xs={12}>
                 <div style={{ textAlign: 'center', padding: '16px' }}>
                   <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#52c41a' }}>
-                    {stats.completionRate}%
+                    {stats.completionRate}{t('dashboard.percent')}
                   </div>
-                  <Text type="secondary">课程完成率</Text>
+                  <Text type="secondary">{t('dashboard.completionRate')}</Text>
                 </div>
               </Col>
               <Col xs={12}>
@@ -480,7 +482,7 @@ export default function DashboardPage() {
                   <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#fa8c16' }}>
                     {stats.averageSessionTime}
                   </div>
-                  <Text type="secondary">平均学习时长(分钟)</Text>
+                  <Text type="secondary">{t('dashboard.averageSessionTime')}</Text>
                 </div>
               </Col>
               <Col xs={12}>
@@ -488,7 +490,7 @@ export default function DashboardPage() {
                   <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#eb2f96' }}>
                     {stats.favoriteCategory}
                   </div>
-                  <Text type="secondary">最喜欢的分类</Text>
+                  <Text type="secondary">{t('dashboard.favoriteCategory')}</Text>
                 </div>
               </Col>
             </Row>
@@ -498,9 +500,9 @@ export default function DashboardPage() {
 
       {/* 最新通知 */}
       <Card 
-        title="最新通知" 
+        title={t('dashboard.latestNotifications')} 
         style={{ marginTop: '24px' }}
-        extra={<Button type="link">查看全部 <RightOutlined /></Button>}
+        extra={<Button type="link" onClick={() => navigate('/dashboard/notifications')}>{t('dashboard.viewAll')} <RightOutlined /></Button>}
       >
         <List
           dataSource={recentNotifications}
@@ -508,7 +510,7 @@ export default function DashboardPage() {
             <List.Item
               actions={[
                 <Button type="link" size="small">
-                  查看详情
+                  {t('dashboard.viewDetails')}
                 </Button>
               ]}
             >
@@ -531,7 +533,7 @@ export default function DashboardPage() {
                 title={
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span>{notification.title}</span>
-                    {!notification.isRead && <Tag color="red">新</Tag>}
+                    {!notification.isRead && <Tag color="red">{t('dashboard.new')}</Tag>}
                   </div>
                 }
                 description={

@@ -14,6 +14,7 @@ import MyCoursesPage from './pages/MyCoursesPage';
 import LearningPage from './pages/LearningPage';
 import CertificatesPage from './pages/CertificatesPage';
 import AchievementsPage from './pages/AchievementsPage';
+import NotificationsPage from './pages/NotificationsPage';
 import './App.css';
 
 // 主应用内容
@@ -34,6 +35,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dashboard/notifications" element={<NotificationsPage />} />
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/courses/:id" element={<CourseDetailPage />} />
         <Route path="/quiz/:id" element={<QuizPage />} />

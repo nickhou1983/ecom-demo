@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Form, Input, Button, Card, Alert, Divider, Space, Typography } from 'antd';
 import { UserOutlined, LockOutlined, BookOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { mockUsers } from '../data/mockData';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -16,6 +18,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
+  const { t } = useTranslation();
 
   const onFinish = async (values: LoginForm) => {
     setLoading(true);
@@ -24,10 +27,10 @@ export default function LoginPage() {
     try {
       const success = await login(values.email, values.password);
       if (!success) {
-        setError('邮箱或密码错误，请检查后重试');
+        setError(t('login.loginError'));
       }
     } catch (err) {
-      setError('登录失败，请稍后重试');
+      setError(t('login.loginError'));
     } finally {
       setLoading(false);
     }
@@ -51,12 +54,15 @@ export default function LoginPage() {
         }}
       >
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
+            <LanguageSwitcher />
+          </div>
           <BookOutlined style={{ fontSize: '48px', color: '#1890ff', marginBottom: '16px' }} />
           <Title level={2} style={{ margin: 0, color: '#262626' }}>
-            企业培训平台
+            {t('login.title')}
           </Title>
           <Text type="secondary">
-            欢迎登录学习管理系统
+            {t('login.subtitle')}
           </Text>
         </div>
 
@@ -78,27 +84,27 @@ export default function LoginPage() {
         >
           <Form.Item
             name="email"
-            label="邮箱"
+            label={t('login.email')}
             rules={[
-              { required: true, message: '请输入邮箱' },
-              { type: 'email', message: '请输入有效的邮箱地址' }
+              { required: true, message: t('login.emailPlaceholder') },
+              { type: 'email', message: t('login.emailPlaceholder') }
             ]}
           >
             <Input 
               prefix={<UserOutlined />} 
-              placeholder="请输入邮箱"
+              placeholder={t('login.emailPlaceholder')}
               autoComplete="email"
             />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label="密码"
-            rules={[{ required: true, message: '请输入密码' }]}
+            label={t('login.password')}
+            rules={[{ required: true, message: t('login.passwordPlaceholder') }]}
           >
             <Input.Password
               prefix={<LockOutlined />}
-              placeholder="请输入密码"
+              placeholder={t('login.passwordPlaceholder')}
               autoComplete="current-password"
             />
           </Form.Item>
@@ -112,22 +118,22 @@ export default function LoginPage() {
               size="large"
               style={{ height: '48px', fontSize: '16px' }}
             >
-              登录
+              {t('login.login')}
             </Button>
           </Form.Item>
         </Form>
 
-        <Divider>演示账号</Divider>
+        <Divider>{t('login.demoAccounts')}</Divider>
 
         <div style={{ background: '#fafafa', padding: '16px', borderRadius: '8px' }}>
           <Text strong style={{ display: 'block', marginBottom: '8px' }}>
-            可用测试账号：
+            {t('login.demoAccounts')}:
           </Text>
           <Space direction="vertical" size="small" style={{ width: '100%' }}>
             {mockUsers.map(user => (
               <div key={user.id} style={{ fontSize: '13px' }}>
                 <Text code>{user.email}</Text>
-                <Text type="secondary"> ({user.role === 'student' ? '学员' : user.role === 'instructor' ? '讲师' : '管理员'})</Text>
+                <Text type="secondary"> ({user.role === 'student' ? t('login.student') : user.role === 'instructor' ? t('login.instructor') : t('login.admin')})</Text>
               </div>
             ))}
           </Space>
@@ -139,13 +145,13 @@ export default function LoginPage() {
               color: '#666'
             }}
           >
-            统一密码：<Text code>password123</Text>
+            {t('login.password')}: <Text code>password123</Text>
           </Paragraph>
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '24px' }}>
           <Text type="secondary" style={{ fontSize: '12px' }}>
-            © 2024 企业培训平台. 技术支持
+            © 2024 {t('login.title')}
           </Text>
         </div>
       </Card>

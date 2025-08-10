@@ -15,7 +15,9 @@ import {
   SunOutlined,
   MoonOutlined,
 } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const { Header, Sider, Content } = Layout;
 
@@ -32,6 +34,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   
   // 当主题模式变化时保存到 localStorage 并应用相应的类
   useEffect(() => {
@@ -47,33 +50,33 @@ export default function AppLayout({ children }: AppLayoutProps) {
     {
       key: 'dashboard',
       icon: <DashboardOutlined />,
-      label: '仪表板',
+      label: t('nav.dashboard'),
       onClick: () => navigate('/dashboard'),
     },
     {
       key: 'courses',
       icon: <BookOutlined />,
-      label: '课程中心',
+      label: t('nav.courses'),
       children: [
-        { key: 'all-courses', label: '所有课程', onClick: () => navigate('/courses') },
-        { key: 'my-courses', label: '我的课程', onClick: () => navigate('/courses/my') },
-        { key: 'learning', label: '正在学习', onClick: () => navigate('/courses/learning') },
+        { key: 'all-courses', label: t('nav.allCourses'), onClick: () => navigate('/courses') },
+        { key: 'my-courses', label: t('nav.myCourses'), onClick: () => navigate('/courses/my') },
+        { key: 'learning', label: t('nav.learning'), onClick: () => navigate('/courses/learning') },
       ],
     },
     {
       key: 'profile',
       icon: <UserOutlined />,
-      label: '个人中心',
+      label: t('nav.profile'),
       children: [
-        { key: 'profile-info', label: '个人信息', onClick: () => navigate('/profile/info') },
-        { key: 'learning-progress', label: '学习进度', onClick: () => navigate('/profile/progress') },
-        { key: 'certificates', label: '我的证书', onClick: () => navigate('/profile/certificates') },
+        { key: 'profile-info', label: t('nav.profileInfo'), onClick: () => navigate('/profile/info') },
+        { key: 'learning-progress', label: t('nav.learningProgress'), onClick: () => navigate('/profile/progress') },
+        { key: 'certificates', label: t('nav.certificates'), onClick: () => navigate('/profile/certificates') },
       ],
     },
     {
       key: 'achievements',
       icon: <TrophyOutlined />,
-      label: '成就中心',
+      label: t('nav.achievements'),
       onClick: () => navigate('/achievements'),
     },
   ];
@@ -83,11 +86,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
     menuItems.push({
       key: 'admin',
       icon: <SettingOutlined />,
-      label: '管理后台',
+      label: t('nav.admin'),
       children: [
-        { key: 'admin-courses', label: '课程管理', onClick: () => navigate('/admin/courses') },
-        { key: 'admin-users', label: '用户管理', onClick: () => navigate('/admin/users') },
-        { key: 'admin-analytics', label: '数据统计', onClick: () => navigate('/admin/analytics') },
+        { key: 'admin-courses', label: t('nav.adminCourses'), onClick: () => navigate('/admin/courses') },
+        { key: 'admin-users', label: t('nav.adminUsers'), onClick: () => navigate('/admin/users') },
+        { key: 'admin-analytics', label: t('nav.adminAnalytics'), onClick: () => navigate('/admin/analytics') },
       ],
     });
   }
@@ -106,13 +109,13 @@ export default function AppLayout({ children }: AppLayoutProps) {
     {
       key: 'profile',
       icon: <UserOutlined />,
-      label: '个人资料',
+      label: t('nav.profile'),
       onClick: () => navigate('/profile'),
     },
     {
       key: 'settings',
       icon: <SettingOutlined />,
-      label: '设置',
+      label: t('nav.settings'),
       onClick: () => navigate('/settings'),
     },
     {
@@ -121,7 +124,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
     {
       key: 'logout',
       icon: <LogoutOutlined />,
-      label: '退出登录',
+      label: t('nav.logout'),
       onClick: logout,
     },
   ];
@@ -156,7 +159,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
               fontSize: '18px',
               fontWeight: 'bold'
             }}>
-              培训平台
+              {t('login.title')}
             </h2>
           ) : (
             <BookOutlined style={{ 
@@ -206,6 +209,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
               />
               <MoonOutlined />
             </Space>
+            
+            <LanguageSwitcher />
             
             <Badge count={3} size="small">
               <Button 

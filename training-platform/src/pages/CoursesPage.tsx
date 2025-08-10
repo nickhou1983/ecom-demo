@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   Card, 
   Row, 
@@ -31,6 +32,7 @@ const { Title, Text } = Typography;
 const { CheckableTag } = Tag;
 
 export default function CoursesPage() {
+  const { t } = useTranslation();
   const [courses] = useState<Course[]>(mockCourses);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>(mockCourses);
   const [loading, setLoading] = useState(false);
@@ -139,9 +141,9 @@ export default function CoursesPage() {
 
   const getLevelText = (level: string) => {
     const levelMap = {
-      'beginner': '初级',
-      'intermediate': '中级',
-      'advanced': '高级'
+      'beginner': t('courses.levels.beginner'),
+      'intermediate': t('courses.levels.intermediate'),
+      'advanced': t('courses.levels.advanced')
     };
     return levelMap[level as keyof typeof levelMap] || level;
   };
@@ -158,9 +160,9 @@ export default function CoursesPage() {
   return (
     <div>
       <div style={{ marginBottom: '24px' }}>
-        <Title level={2}>课程中心</Title>
+        <Title level={2}>{t('courses.title')}</Title>
         <Text type="secondary">
-          探索我们精心策划的课程，提升您的专业技能
+          {t('courses.description')}
         </Text>
       </div>
 
@@ -169,7 +171,7 @@ export default function CoursesPage() {
         <Row gutter={[16, 16]}>
           <Col xs={24} md={8}>
             <Search
-              placeholder="搜索课程、讲师或标签"
+              placeholder={t('courses.searchPlaceholder')}
               allowClear
               size="large"
               onSearch={handleSearch}
@@ -178,7 +180,7 @@ export default function CoursesPage() {
           </Col>
           <Col xs={24} md={4}>
             <Select
-              placeholder="选择分类"
+              placeholder={t('courses.selectCategory')}
               allowClear
               size="large"
               style={{ width: '100%' }}
@@ -192,21 +194,21 @@ export default function CoursesPage() {
           </Col>
           <Col xs={24} md={4}>
             <Select
-              placeholder="难度等级"
+              placeholder={t('courses.difficultyLevel')}
               allowClear
               size="large"
               style={{ width: '100%' }}
               onChange={(value) => handleFilterChange('level', value)}
               value={filters.level}
             >
-              <Option value="beginner">初级</Option>
-              <Option value="intermediate">中级</Option>
-              <Option value="advanced">高级</Option>
+              <Option value="beginner">{t('courses.levels.beginner')}</Option>
+              <Option value="intermediate">{t('courses.levels.intermediate')}</Option>
+              <Option value="advanced">{t('courses.levels.advanced')}</Option>
             </Select>
           </Col>
           <Col xs={24} md={4}>
             <Select
-              placeholder="讲师"
+              placeholder={t('courses.selectInstructor')}
               allowClear
               size="large"
               style={{ width: '100%' }}
@@ -225,7 +227,7 @@ export default function CoursesPage() {
                 onClick={resetFilters}
                 size="large"
               >
-                重置筛选
+                {t('courses.resetFilters')}
               </Button>
             </Space>
           </Col>
@@ -235,7 +237,7 @@ export default function CoursesPage() {
         <Divider />
         <Row gutter={[16, 16]}>
           <Col xs={24} md={8}>
-            <Text strong>课程时长（小时）:</Text>
+            <Text strong>{t('courses.courseDuration')}:</Text>
             <Slider
               range
               min={0}
@@ -246,7 +248,7 @@ export default function CoursesPage() {
             />
           </Col>
           <Col xs={24} md={8}>
-            <Text strong>最低评分:</Text>
+            <Text strong>{t('courses.courseRating')}:</Text>
             <div style={{ marginTop: '8px' }}>
               <Rate
                 allowHalf
@@ -259,7 +261,7 @@ export default function CoursesPage() {
 
         {/* 技能标签 */}
         <div style={{ marginTop: '16px' }}>
-          <Text strong>技能标签:</Text>
+          <Text strong>{t('courses.skillTags')}:</Text>
           <div style={{ marginTop: '8px' }}>
             {skillTags.slice(0, 12).map(tag => (
               <CheckableTag
@@ -316,7 +318,7 @@ export default function CoursesPage() {
                   block
                   onClick={() => navigate(`/courses/${course.id}`)}
                 >
-                  开始学习
+                  {t('courses.startLearning')}
                 </Button>
               ]}
             >
@@ -376,11 +378,11 @@ export default function CoursesPage() {
                       <Space size="small">
                         <ClockCircleOutlined style={{ fontSize: '12px', color: '#666' }} />
                         <Text style={{ fontSize: '12px', color: '#666' }}>
-                          {Math.round(course.duration / 60)}小时
+                          {Math.round(course.duration / 60)}{t('courses.duration')}
                         </Text>
                       </Space>
                       <Text style={{ fontSize: '12px', color: '#666' }}>
-                        {course.enrolledCount} 人已学习
+                        {course.enrolledCount} {t('courses.enrolled')}
                       </Text>
                     </div>
                   </div>
@@ -401,7 +403,7 @@ export default function CoursesPage() {
             onChange={setCurrentPage}
             showSizeChanger={false}
             showQuickJumper
-            showTotal={(total) => `共 ${total} 门课程`}
+            showTotal={(total) => `${t('common.total')} ${total} ${t('courses.foundCourses')}`}
           />
         </div>
       )}
