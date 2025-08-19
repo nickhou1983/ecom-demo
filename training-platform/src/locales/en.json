@@ -227,5 +227,39 @@
     "markAsRead": "Mark as Read",
     "viewDetails": "View Details",
     "noNotifications": "No notifications"
+  },
+  "myCourses": {
+    "title": "My Courses",
+    "subtitle": "Manage your enrolled courses and continue your learning journey",
+    "totalCourses": "Total Courses",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "totalLearningTime": "Total Learning Time",
+    "allCourses": "All Courses",
+    "inProgressTab": "In Progress",
+    "completedTab": "Completed",
+    "completed_percent": "completed",
+    "hours": "hours",
+    "lastStudied": "Last studied",
+    "continueLearning": "Continue Learning",
+    "reviewCourse": "Review Course",
+    "noCoursesEnrolled": "You haven't enrolled in any courses yet",
+    "noInProgressCourses": "No courses in progress",
+    "noCompletedCourses": "No completed courses yet",
+    "browseCourses": "Browse Courses",
+    "startNewCourse": "Start New Course",
+    "startLearning": "Start Learning",
+    "learningTips": "Learning Tips",
+    "keepLearningRhythm": "Keep Learning Rhythm",
+    "keepLearningRhythmDesc": "We recommend studying at least 30 minutes daily to maintain good learning habits.",
+    "completeInProgressCourses": "Complete In-Progress Courses",
+    "completeInProgressCoursesDesc": "You have {count} courses in progress. We recommend prioritizing completion of these courses.",
+    "regularReview": "Regular Review",
+    "regularReviewDesc": "Regularly review learned content to consolidate knowledge and improve learning effectiveness.",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate", 
+      "advanced": "Advanced"
+    }
   }
 }

@@ -88,7 +88,7 @@ export default function DashboardPage() {
       {/* 统计卡片 */}
       <Row gutter={[24, 24]} style={{ marginBottom: '24px' }}>
         <Col xs={24} sm={12} lg={6}>
-          <Card>
+          <Card style={{ height: '100%' }}>
             <Statistic
               title={t('dashboard.completedCourses')}
               value={stats.completedCourses}
@@ -98,7 +98,7 @@ export default function DashboardPage() {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card>
+          <Card style={{ height: '100%' }}>
             <Statistic
               title={t('dashboard.inProgressCourses')}
               value={stats.inProgressCourses}
@@ -108,7 +108,7 @@ export default function DashboardPage() {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card>
+          <Card style={{ height: '100%' }}>
             <Statistic
               title={t('dashboard.totalLearningTime')}
               value={Math.round(stats.totalLearningTime / 60)}
@@ -118,24 +118,13 @@ export default function DashboardPage() {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card>
+          <Card style={{ height: '100%' }}>
             <Statistic
               title={t('dashboard.weeklyProgress')}
               value={stats.weeklyProgress}
               suffix={t('dashboard.percent')}
               prefix={<TrophyOutlined style={{ color: '#eb2f96' }} />}
             />
-            <div style={{ marginTop: '8px' }}>
-              <Progress 
-                percent={stats.weeklyProgress} 
-                size="small" 
-                strokeColor="#eb2f96"
-                showInfo={false}
-              />
-              <Text type="secondary" style={{ fontSize: '12px' }}>
-                {t('dashboard.goal')}: {Math.round(stats.weeklyGoal / 60)}{t('dashboard.perWeek')}
-              </Text>
-            </div>
           </Card>
         </Col>
       </Row>

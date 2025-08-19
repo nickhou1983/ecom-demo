@@ -1,5 +1,6 @@
 import { Card, Row, Col, List, Avatar, Tag, Button, Space, Typography, Progress, Tabs, Empty, Statistic } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   BookOutlined, 
   PlayCircleOutlined, 
@@ -22,6 +23,7 @@ const { TabPane } = Tabs;
 export default function MyCoursesPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // 获取用户的学习进度
   const userProgress = mockProgress.filter(p => p.userId === user?.id);
@@ -81,10 +83,10 @@ export default function MyCoursesPage() {
                   marginTop: '4px'
                 }}>
                   <Text style={{ color: 'white', fontSize: '12px' }}>
-                    {progress.completedPercentage}% 完成
+                    {progress.completedPercentage}% {t('myCourses.completed_percent')}
                   </Text>
                   <Text style={{ color: 'white', fontSize: '12px' }}>
-                    {Math.round(progress.timeSpent / 60)} / {Math.round(course.duration / 60)} 小时
+                    {Math.round(progress.timeSpent / 60)} / {Math.round(course.duration / 60)} {t('myCourses.hours')}
                   </Text>
                 </div>
               </div>
@@ -100,7 +102,7 @@ export default function MyCoursesPage() {
               navigate(`/courses/${course.id}`);
             }}
           >
-            {isCompleted ? '复习课程' : '继续学习'}
+            {isCompleted ? t('myCourses.reviewCourse') : t('myCourses.continueLearning')}
           </Button>
         ]}
       >
@@ -115,13 +117,12 @@ export default function MyCoursesPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span>{course.instructor}</span>
               <Space>
-                {isCompleted && <Tag color="green">已完成</Tag>}
+                {isCompleted && <Tag color="green">{t('dashboard.status.completed')}</Tag>}
                 <Tag color={
                   course.level === 'beginner' ? 'blue' : 
                   course.level === 'intermediate' ? 'orange' : 'red'
                 }>
-                  {course.level === 'beginner' ? '初级' : 
-                   course.level === 'intermediate' ? '中级' : '高级'}
+                  {t(`myCourses.levels.${course.level}`)}
                 </Tag>
                 <Tag>{course.category}</Tag>
               </Space>
@@ -138,7 +139,7 @@ export default function MyCoursesPage() {
                   <Text>{course.rating}</Text>
                 </Space>
                 <Text type="secondary" style={{ fontSize: '12px' }}>
-                  最后学习: {new Date(progress.lastAccessed).toLocaleDateString('zh-CN')}
+                  {t('myCourses.lastStudied')}: {new Date(progress.lastAccessed).toLocaleDateString()}
                 </Text>
               </div>
             </div>
@@ -154,10 +155,10 @@ export default function MyCoursesPage() {
       <div style={{ marginBottom: '24px' }}>
         <Title level={2}>
           <BookOutlined style={{ marginRight: '8px' }} />
-          我的课程
+          {t('myCourses.title')}
         </Title>
         <Text type="secondary">
-          管理您已注册的课程，继续您的学习之旅
+          {t('myCourses.subtitle')}
         </Text>
       </div>
 
@@ -166,9 +167,9 @@ export default function MyCoursesPage() {
         <Col xs={24} sm={6}>
           <Card>
             <Statistic
-              title="总课程数"
+              title={t('myCourses.totalCourses')}
               value={userCourses.length}
-              suffix="门"
+              suffix={t('dashboard.courses')}
               prefix={<BookOutlined style={{ color: '#1890ff' }} />}
             />
           </Card>
@@ -176,9 +177,9 @@ export default function MyCoursesPage() {
         <Col xs={24} sm={6}>
           <Card>
             <Statistic
-              title="进行中"
+              title={t('myCourses.inProgress')}
               value={inProgressCourses.length}
-              suffix="门"
+              suffix={t('dashboard.courses')}
               prefix={<PlayCircleOutlined style={{ color: '#fa8c16' }} />}
             />
           </Card>
@@ -186,9 +187,9 @@ export default function MyCoursesPage() {
         <Col xs={24} sm={6}>
           <Card>
             <Statistic
-              title="已完成"
+              title={t('myCourses.completed')}
               value={completedCourses.length}
-              suffix="门"
+              suffix={t('dashboard.courses')}
               prefix={<CheckCircleOutlined style={{ color: '#52c41a' }} />}
             />
           </Card>
@@ -196,9 +197,9 @@ export default function MyCoursesPage() {
         <Col xs={24} sm={6}>
           <Card>
             <Statistic
-              title="总学习时长"
+              title={t('myCourses.totalLearningTime')}
               value={Math.round(stats.totalLearningTime / 60)}
-              suffix="小时"
+              suffix={t('myCourses.hours')}
               prefix={<ClockCircleOutlined style={{ color: '#eb2f96' }} />}
             />
           </Card>
@@ -212,7 +213,7 @@ export default function MyCoursesPage() {
             tab={
               <Space>
                 <BarChartOutlined />
-                全部课程 ({userCourses.length})
+                {t('myCourses.allCourses')} ({userCourses.length})
               </Space>
             } 
             key="all"
@@ -220,10 +221,10 @@ export default function MyCoursesPage() {
             {userCourses.length === 0 ? (
               <Empty 
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description="您还没有注册任何课程"
+                description={t('myCourses.noCoursesEnrolled')}
               >
                 <Button type="primary" onClick={() => navigate('/courses')}>
-                  浏览课程
+                  {t('myCourses.browseCourses')}
                 </Button>
               </Empty>
             ) : (
@@ -241,7 +242,7 @@ export default function MyCoursesPage() {
             tab={
               <Space>
                 <PlayCircleOutlined />
-                进行中 ({inProgressCourses.length})
+                {t('myCourses.inProgressTab')} ({inProgressCourses.length})
               </Space>
             } 
             key="in-progress"
@@ -249,10 +250,10 @@ export default function MyCoursesPage() {
             {inProgressCourses.length === 0 ? (
               <Empty 
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description="没有正在进行中的课程"
+                description={t('myCourses.noInProgressCourses')}
               >
                 <Button type="primary" onClick={() => navigate('/courses')}>
-                  开始新课程
+                  {t('myCourses.startNewCourse')}
                 </Button>
               </Empty>
             ) : (
@@ -270,7 +271,7 @@ export default function MyCoursesPage() {
             tab={
               <Space>
                 <CheckCircleOutlined />
-                已完成 ({completedCourses.length})
+                {t('myCourses.completedTab')} ({completedCourses.length})
               </Space>
             } 
             key="completed"
@@ -278,10 +279,10 @@ export default function MyCoursesPage() {
             {completedCourses.length === 0 ? (
               <Empty 
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description="还没有完成任何课程"
+                description={t('myCourses.noCompletedCourses')}
               >
                 <Button type="primary" onClick={() => navigate('/courses')}>
-                  开始学习
+                  {t('myCourses.startLearning')}
                 </Button>
               </Empty>
             ) : (
@@ -303,7 +304,7 @@ export default function MyCoursesPage() {
           title={
             <Space>
               <TrophyOutlined />
-              学习建议
+              {t('myCourses.learningTips')}
             </Space>
           }
           style={{ marginTop: '24px' }}
@@ -311,18 +312,18 @@ export default function MyCoursesPage() {
           <List
             dataSource={[
               {
-                title: '保持学习节奏',
-                description: '建议每天至少学习30分钟，保持连续学习的好习惯。',
+                title: t('myCourses.keepLearningRhythm'),
+                description: t('myCourses.keepLearningRhythmDesc'),
                 icon: <ClockCircleOutlined style={{ color: '#1890ff' }} />
               },
               {
-                title: '完成进行中的课程',
-                description: `您有${inProgressCourses.length}门课程正在学习中，建议优先完成这些课程。`,
+                title: t('myCourses.completeInProgressCourses'),
+                description: `${t('myCourses.completeInProgressCoursesDesc').replace('{count}', inProgressCourses.length.toString())}`,
                 icon: <PlayCircleOutlined style={{ color: '#fa8c16' }} />
               },
               {
-                title: '定期复习',
-                description: '定期回顾已学内容，巩固知识点，提高学习效果。',
+                title: t('myCourses.regularReview'),
+                description: t('myCourses.regularReviewDesc'),
                 icon: <StarOutlined style={{ color: '#faad14' }} />
               }
             ]}
