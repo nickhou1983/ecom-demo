@@ -1,0 +1,23 @@
+类别,问题描述,文件路径,文件名,行数,严重程度,建议修复
+类型安全,使用了any类型，缺乏类型安全,src/pages/CertificatesPage.tsx,CertificatesPage.tsx,"24, 64, 70",高,定义具体的类型接口替换any类型
+类型安全,使用了any类型，缺乏类型安全,src/pages/CoursesPage.tsx,CoursesPage.tsx,111,高,定义具体的类型接口替换any类型
+类型安全,使用了any类型，缺乏类型安全,src/pages/LearningPage.tsx,LearningPage.tsx,44,高,定义具体的类型接口替换any类型
+类型安全,使用了any类型，缺乏类型安全,src/pages/MyCoursesPage.tsx,MyCoursesPage.tsx,45,高,定义具体的类型接口替换any类型
+类型安全,使用了any类型，缺乏类型安全,src/pages/QuizPage.tsx,QuizPage.tsx,"34, 82",高,定义具体的类型接口替换any类型
+类型安全,使用了any类型，缺乏类型安全,src/types/index.ts,index.ts,164,高,定义具体的类型接口替换any类型
+代码质量,未使用的变量,src/pages/LoginPage.tsx,LoginPage.tsx,32,中,移除未使用的变量或重命名为_err
+React hooks,useEffect缺少依赖项,src/pages/QuizPage.tsx,QuizPage.tsx,56,中,添加缺少的依赖项或移除依赖数组
+React热更新,文件导出非组件内容影响热更新,src/context/AuthContext.tsx,AuthContext.tsx,145,中,将useAuth hook移到单独文件或使用默认导出
+性能优化,大量内联样式对象创建,src/pages/DashboardPage.tsx,DashboardPage.tsx,多处,中,提取样式对象到组件外部或使用CSS-in-JS库
+性能优化,组件内部定义复杂计算逻辑,src/pages/DashboardPage.tsx,DashboardPage.tsx,30-50,中,使用useMemo优化复杂计算
+安全性,localStorage使用不当，缺少错误处理,src/context/AuthContext.tsx,AuthContext.tsx,"79, 106, 116, 126",中,添加try-catch错误处理和数据验证
+安全性,localStorage使用不当，缺少错误处理,src/components/Layout.tsx,Layout.tsx,"32, 41",中,添加try-catch错误处理
+代码质量,控制台日志未清理,src/pages/CertificatesPage.tsx,CertificatesPage.tsx,"240, 247",低,移除或使用适当的日志库
+代码质量,控制台日志未清理,src/pages/CourseDetailPage.tsx,CourseDetailPage.tsx,63,低,移除或使用适当的日志库
+性能优化,不必要的setTimeout零延迟,src/pages/CoursesPage.tsx,CoursesPage.tsx,124,低,直接调用函数或使用requestAnimationFrame
+代码结构,组件过于复杂，单个文件行数过多,src/pages/DashboardPage.tsx,DashboardPage.tsx,全文件,中,拆分成多个子组件
+代码结构,缺少错误边界处理,src/App.tsx,App.tsx,全文件,中,添加React错误边界组件
+配置优化,Vite配置过于简单，缺少优化设置,vite.config.ts,vite.config.ts,全文件,低,添加构建优化、代码分割等配置
+国际化,硬编码文本混合多语言支持,src/pages/DashboardPage.tsx,DashboardPage.tsx,多处,低,确保所有文本都使用t()函数包装
+性能优化,大型数据列表缺少虚拟化,src/pages/DashboardPage.tsx,DashboardPage.tsx,列表渲染部分,低,对大型列表使用虚拟滚动
+测试覆盖,缺少单元测试,src/,全部组件,N/A,中,添加关键组件和功能的单元测试
