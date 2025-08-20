@@ -227,5 +227,39 @@
     "markAsRead": "标记为已读",
     "viewDetails": "查看详情",
     "noNotifications": "暂无通知"
+  },
+  "myCourses": {
+    "title": "我的课程",
+    "subtitle": "管理您已报名的课程，继续您的学习之旅",
+    "totalCourses": "总课程数",
+    "inProgress": "进行中",
+    "completed": "已完成",
+    "totalLearningTime": "总学习时长",
+    "allCourses": "全部课程",
+    "inProgressTab": "进行中",
+    "completedTab": "已完成",
+    "completed_percent": "已完成",
+    "hours": "小时",
+    "lastStudied": "最后学习",
+    "continueLearning": "继续学习",
+    "reviewCourse": "复习课程",
+    "noCoursesEnrolled": "您还没有报名任何课程",
+    "noInProgressCourses": "暂无进行中的课程",
+    "noCompletedCourses": "暂无已完成的课程",
+    "browseCourses": "浏览课程",
+    "startNewCourse": "开始新课程",
+    "startLearning": "开始学习",
+    "learningTips": "学习建议",
+    "keepLearningRhythm": "保持学习节奏",
+    "keepLearningRhythmDesc": "我们建议每天至少学习30分钟，保持良好的学习习惯。",
+    "completeInProgressCourses": "完成正在进行的课程",
+    "completeInProgressCoursesDesc": "您有{count}门正在进行的课程，建议优先完成这些课程。",
+    "regularReview": "定期复习",
+    "regularReviewDesc": "定期回顾已学内容，巩固知识，提高学习效果。",
+    "levels": {
+      "beginner": "初级",
+      "intermediate": "中级",
+      "advanced": "高级"
+    }
   }
 }
